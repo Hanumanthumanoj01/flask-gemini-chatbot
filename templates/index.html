@@ -27,7 +27,6 @@
       box-sizing: border-box;
     }
 
-    /* THE ULTIMATE FIX FOR HORIZONTAL SCROLLING */
     html, body {
       width: 100%;
       max-width: 100%;
@@ -142,10 +141,10 @@
        ========================================== */
     .dashboard-grid {
       display: grid;
-      grid-template-columns: 280px minmax(0, 1fr) 280px; /* Locks sides, flexes center */
+      grid-template-columns: 280px minmax(0, 1fr) 280px;
       gap: 25px;
-      flex: 1; /* Takes up remaining height */
-      min-height: 0; /* Prevents overflow pushing */
+      flex: 1;
+      min-height: 0;
     }
 
     .glass-card {
@@ -167,7 +166,7 @@
 
     .profile-hero {
       width: 100%;
-      aspect-ratio: 1 / 1; /* Perfect Square/Circle */
+      aspect-ratio: 1 / 1;
       object-fit: cover;
       border-radius: 16px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.6);
@@ -210,6 +209,51 @@
       text-align: left;
     }
     .chip:hover { background: rgba(139, 92, 246, 0.2); border-color: #8b5cf6; color: #fff; transform: translateX(5px); }
+
+    /* --- Feedback Form Styles --- */
+    .feedback-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 5px;
+    }
+    .feedback-form input, .feedback-form textarea {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.85rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    .feedback-form input:focus, .feedback-form textarea:focus {
+      border-color: #ec4899;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .feedback-form textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+    .feedback-form button {
+      background: var(--primary-gradient);
+      background-size: 200% auto;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.85rem;
+    }
+    .feedback-form button:hover {
+      background-position: right center;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+    }
 
     /* --- Center Chat Area --- */
     .main-chat {
@@ -270,7 +314,7 @@
       border-radius: 20px;
       padding: 12px 15px;
       box-shadow: inset 0 2px 5px rgba(0,0,0,0.2), 0 4px 15px rgba(0,0,0,0.1);
-      flex-shrink: 0; /* Prevents input box from getting squished */
+      flex-shrink: 0;
     }
     #input_container:focus-within { border-color: #8b5cf6; }
 
@@ -325,10 +369,12 @@
     @keyframes floatOrbs { 0% { transform: translate(0, 0); } 50% { transform: translate(30px, -30px); } 100% { transform: translate(-20px, 20px); } }
     @keyframes gradientShift { to { background-position: 200% center; } }
     @keyframes messagePop { from { opacity: 0; transform: scale(0.9) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes fadeInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
 
     /* --- Responsiveness (Hides sides on small screens) --- */
     @media (max-width: 1050px) {
-      .dashboard-grid { grid-template-columns: 1fr; } /* Only the center chat column */
+      .dashboard-grid { grid-template-columns: 1fr; }
       .left-panel, .right-panel { display: none; }
     }
     @media (max-width: 768px) {
@@ -383,6 +429,7 @@
       </main>
 
       <aside class="side-panel right-panel">
+
         <div class="glass-card">
           <h3>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
@@ -395,6 +442,25 @@
             <span class="chip" onclick="fillPrompt('Explain the latest advancements and standard procedures in modern Dentistry');">🦷 Modern Dentistry</span>
           </div>
         </div>
+
+        <div class="glass-card" style="margin-top: 20px; animation-delay: 0.7s;">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            Suggestion Box
+          </h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Send feedback directly to Manoj!</p>
+
+          <form class="feedback-form" action="https://formsubmit.co/hanumanthumanoj27@gmail.com" method="POST">
+            <input type="hidden" name="_next" value="https://manoj-ai-gf63.onrender.com">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_subject" value="New AI Chatbot Feedback!">
+
+            <input type="text" name="name" placeholder="Your Name" required>
+            <textarea name="message" placeholder="Your suggestions..." required></textarea>
+            <button type="submit">Send Feedback</button>
+          </form>
+        </div>
+
       </aside>
 
     </div> <div class="creator-badge">
