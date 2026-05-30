@@ -70,7 +70,7 @@
     .page-wrapper {
       display: flex;
       flex-direction: column;
-      height: 100vh;
+      min-height: 100vh;
       max-width: 1400px;
       margin: 0 auto;
       padding: 20px;
@@ -136,15 +136,12 @@
     .social-links a:hover { fill: #fff; border-color: #8b5cf6; transform: translateY(-3px); }
     .social-links svg { width: 16px; height: 16px; }
 
-    /* ==========================================
-       THE CSS GRID FIX (NO HORIZONTAL SCROLL)
-       ========================================== */
+    /* --- THE RESPONSIVE CSS GRID --- */
     .dashboard-grid {
       display: grid;
       grid-template-columns: 280px minmax(0, 1fr) 280px;
       gap: 25px;
       flex: 1;
-      min-height: 0;
     }
 
     .glass-card {
@@ -156,7 +153,7 @@
       box-shadow: 0 15px 35px rgba(0,0,0,0.4);
     }
 
-    /* Left Panel: Big Profile Photo */
+    /* Left Panel: Profile Photo */
     .left-panel .glass-card {
       display: flex;
       flex-direction: column;
@@ -182,7 +179,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* Right Panel Headers */
+    /* Panel Headers */
     .glass-card h3 {
       font-size: 1rem;
       font-weight: 600;
@@ -260,8 +257,7 @@
       display: flex;
       flex-direction: column;
       gap: 15px;
-      height: 100%;
-      min-height: 0;
+      height: 68vh; /* Fixed viewport height allocation for desktop smoothness */
     }
 
     #chat_container {
@@ -357,11 +353,12 @@
 
     /* Footer Badge */
     .creator-badge {
-      margin-top: 20px;
+      margin-top: 25px;
       font-size: 0.85rem;
       color: var(--text-muted);
       text-align: center;
       flex-shrink: 0;
+      padding-bottom: 10px;
     }
     .creator-badge span { color: #ec4899; font-weight: 600; }
 
@@ -369,20 +366,48 @@
     @keyframes floatOrbs { 0% { transform: translate(0, 0); } 50% { transform: translate(30px, -30px); } 100% { transform: translate(-20px, 20px); } }
     @keyframes gradientShift { to { background-position: 200% center; } }
     @keyframes messagePop { from { opacity: 0; transform: scale(0.9) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-    @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
-    @keyframes fadeInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
 
-    /* --- Responsiveness (Hides sides on small screens) --- */
-    @media (max-width: 1050px) {
-      .dashboard-grid { grid-template-columns: 1fr; }
-      .left-panel, .right-panel { display: none; }
+    /* ==================================================
+       MEDIA QUERIES (TABLET & MOBILE RESPONSIVE REWRITE)
+       ================================================== */
+    @media (max-width: 1100px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr; /* Switch to a single stacking column layout */
+        gap: 20px;
+      }
+
+      .left-panel, .right-panel {
+        display: block; /* Make sure elements stay visible */
+        width: 100%;
+      }
+
+      .main-chat {
+        height: 60vh; /* Smooth container layout for middle tier viewports */
+        grid-row: 1;  /* Force the chat container to remain at the absolute top on mobile! */
+      }
+
+      .profile-hero {
+        width: 180px; /* Resize profile box down on mobile so it doesn't scale massively */
+        height: 180px;
+      }
+
+      .chip-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Quick prompt chips sit cleanly side by side */
+        gap: 10px;
+      }
     }
-    @media (max-width: 768px) {
-      .page-wrapper { padding: 10px; }
-      .top-logo { width: 60px; height: 60px; }
-      h1 { font-size: 1.8rem; }
-      #chat_container { padding: 15px; border-radius: 16px; }
-      .chat-bubble { max-width: 92%; }
+
+    @media (max-width: 600px) {
+      .page-wrapper { padding: 12px; }
+      .top-logo { width: 65px; height: 65px; }
+      h1 { font-size: 1.6rem; }
+      #chat_container { padding: 16px; border-radius: 18px; }
+      .chat-bubble { max-width: 90%; font-size: 0.9rem; }
+
+      .chip-wrapper {
+        grid-template-columns: 1fr; /* Stack chips single column on extra tiny phones */
+      }
     }
   </style>
 </head>
@@ -421,7 +446,7 @@
         </div>
 
         <div id="input_container">
-          <textarea id="user_input" rows="1" placeholder="Type a message... (Shift + Enter for new line)"></textarea>
+          <textarea id="user_input" rows="1" placeholder="Type a message..."></textarea>
           <button id="send_btn" onclick="sendMessage()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
           </button>
@@ -443,7 +468,7 @@
           </div>
         </div>
 
-        <div class="glass-card" style="margin-top: 20px; animation-delay: 0.7s;">
+        <div class="glass-card" style="margin-top: 20px;">
           <h3>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
             Suggestion Box
@@ -470,29 +495,24 @@
   </div> <script>
     const userInput = document.getElementById("user_input");
 
-    // Auto-fill prompt helper
     function fillPrompt(text) {
       userInput.value = text;
       adjustTextareaHeight();
       userInput.focus();
     }
 
-    // Dynamic textarea resize
     function adjustTextareaHeight() {
       userInput.style.height = "auto";
-      userInput.style.height = Math.min(userInput.scrollHeight, 120) + "px"; // Cap max height
+      userInput.style.height = Math.min(userInput.scrollHeight, 120) + "px";
     }
 
     userInput.addEventListener("input", adjustTextareaHeight);
 
-    // ChatGPT Style Enter / Shift+Enter Logic
     userInput.addEventListener("keydown", function (e) {
       if (e.key === "Enter") {
         if (e.shiftKey) {
-          // Do nothing, let the browser add a new line
           setTimeout(adjustTextareaHeight, 0);
         } else {
-          // Prevent new line and send message
           e.preventDefault();
           sendMessage();
         }
@@ -505,14 +525,12 @@
 
       const chatContainer = document.getElementById("chat_container");
 
-      // Render user message visually (convert \n to <br>)
       const userBubble = document.createElement("div");
       userBubble.className = "user chat-bubble";
       userBubble.innerHTML = text.replace(/\n/g, '<br>');
       chatContainer.appendChild(userBubble);
       chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: "smooth" });
 
-      // Clean up input
       userInput.value = "";
       userInput.style.height = "auto";
 
@@ -520,7 +538,7 @@
         const response = await fetch("/chatbot", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question: text }) // Pass raw text to backend
+          body: JSON.stringify({ question: text })
         });
 
         if (!response.ok) {
