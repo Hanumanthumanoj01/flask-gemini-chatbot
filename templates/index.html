@@ -125,6 +125,18 @@
     #send_btn { background: var(--primary-gradient); background-size: 200% auto; border: none; }
     #send_btn:hover { background-position: right center; transform: scale(1.05); box-shadow: 0 5px 15px rgba(236, 72, 153, 0.4); }
 
+    /* New Mic Recording Animation */
+    @keyframes pulseRed {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); background: rgba(239, 68, 68, 0.8); }
+      70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); background: transparent; }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); background: rgba(239, 68, 68, 0.8); }
+    }
+    .recording {
+      animation: pulseRed 1.5s infinite;
+      color: white;
+      border-color: #ef4444 !important;
+    }
+
     .creator-badge { margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); text-align: center; flex-shrink: 0; }
     .creator-badge span { color: #ec4899; font-weight: 600; }
 
@@ -147,7 +159,7 @@
 
   <div class="page-wrapper">
     <header>
-      <img src="{{ url_for('static', filename='assets/Manoj.webp') }}" alt="Top Logo" class="top-logo">
+      <img src="{{ url_for('static', filename='assets/Manoj.webp') }}" alt="Top Logo" class="top-logo" onerror="this.src='https://ui-avatars.com/api/?name=Mr+Manoj&background=8b5cf6&color=fff'">
       <h1>🌐 Mr. Manoj – <span>AI Assistant</span></h1>
     </header>
 
@@ -155,7 +167,7 @@
 
       <aside class="side-panel left-panel">
         <div class="glass-card">
-          <img src="{{ url_for('static', filename='assets/hero.png') }}" alt="Manoj Hero" class="profile-hero">
+          <img src="{{ url_for('static', filename='assets/hero.png') }}" alt="Manoj Hero" class="profile-hero" onerror="this.src='https://ui-avatars.com/api/?name=Mr+Manoj&background=8b5cf6&color=fff'">
           <div class="profile-name">Manoj Hanumanthu</div>
         </div>
 
@@ -182,7 +194,7 @@
 
       <main class="main-chat">
         <div id="chat_container">
-          <div class="bot chat-bubble">Hello! I am Mr. Manoj Hanumanthu, your AI assistant. Upload an image or ask me anything!</div>
+          <div class="bot chat-bubble">Hello! I am Mr. Manoj Hanumanthu, your AI assistant. Upload an image, or use the mic to ask me anything!</div>
         </div>
 
         <div id="input_container">
@@ -195,6 +207,10 @@
 
           <button class="action-icon-btn" onclick="document.getElementById('image_upload').click()" title="Upload Image">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+          </button>
+
+          <button class="action-icon-btn" id="mic_btn" onclick="toggleMic()" title="Voice Input (Auto-detect)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
           </button>
 
           <textarea id="user_input" rows="1" placeholder="Ask a question or describe your image..."></textarea>
@@ -308,7 +324,7 @@
       a.click();
     }
 
-    // --- IMAGE UPLOAD LOGIC ---
+    // --- 2. IMAGE UPLOAD LOGIC ---
     let currentImageBase64 = null;
     document.getElementById('image_upload').addEventListener('change', function(e) {
       const file = e.target.files[0];
@@ -329,11 +345,66 @@
       document.getElementById('image_preview_container').style.display = 'none';
     }
 
+    // --- 3. VOICE INPUT (SPEECH TO TEXT) ---
+    const micBtn = document.getElementById("mic_btn");
+    let recognition;
+    let isRecording = false;
+    let originalText = "";
+
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = true;
+
+      // Leaving recognition.lang blank allows the browser to auto-detect language!
+
+      recognition.onstart = function() {
+        isRecording = true;
+        micBtn.classList.add("recording");
+        originalText = userInput.value;
+        if (originalText && !originalText.endsWith(' ')) originalText += ' ';
+      };
+
+      recognition.onresult = function(event) {
+        let transcript = '';
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+            transcript += event.results[i][0].transcript;
+        }
+        userInput.value = originalText + transcript;
+        adjustTextareaHeight();
+      };
+
+      recognition.onerror = function(event) {
+        console.error("Speech recognition error", event.error);
+        stopMic();
+      };
+
+      recognition.onend = function() {
+        stopMic();
+      };
+    } else {
+      micBtn.style.display = 'none'; // Hide if browser doesn't support it
+    }
+
+    function toggleMic() {
+      if (!recognition) return alert("Voice input is not supported in this browser. Try Google Chrome.");
+      if (isRecording) {
+        recognition.stop();
+      } else {
+        recognition.start();
+      }
+    }
+
+    function stopMic() {
+      isRecording = false;
+      micBtn.classList.remove("recording");
+    }
+
     // --- 4. ADVANCED TTS TRANSLATION WITH STOP BUTTON ---
     let isSpeaking = false;
 
     async function playTTS(rawText, btnElement) {
-        // If it is already speaking, this acts as a STOP button
         if (isSpeaking) {
             speechSynthesis.cancel();
             isSpeaking = false;
@@ -358,11 +429,9 @@
                 if (data.translated_text) {
                     textToSpeak = data.translated_text;
                 } else {
-                    console.error("Translation returned empty data.");
                     alert("Translation server busy. Reading in English.");
                 }
             } catch (e) {
-                console.error("Translation request failed", e);
                 alert("Translation failed. Reading in English.");
             }
         }
@@ -375,13 +444,13 @@
         utterance.onstart = () => {
             isSpeaking = true;
             btnElement.innerHTML = '🛑 Stop';
-            btnElement.style.background = '#ef4444'; // Make it red while playing
+            btnElement.style.background = '#ef4444';
             btnElement.style.borderColor = 'transparent';
         };
         utterance.onend = () => {
             isSpeaking = false;
             btnElement.innerHTML = '🔊 Read';
-            btnElement.style.background = 'rgba(255,255,255,0.1)'; // Return to normal
+            btnElement.style.background = 'rgba(255,255,255,0.1)';
         };
         utterance.onerror = () => {
             isSpeaking = false;
@@ -440,6 +509,7 @@
       userInput.value = "";
       userInput.style.height = "auto";
       clearImage();
+      if(isRecording) stopMic(); // Stop recording if they manually send
 
       try {
         const response = await fetch("/chatbot", {

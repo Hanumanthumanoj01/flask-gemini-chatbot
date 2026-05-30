@@ -22,14 +22,22 @@ if not GEMINI_API_KEY:
 genai.configure(api_key=GEMINI_API_KEY)
 
 # -------------------------
-# STABLE MODEL FALLBACK LIST
-# Fixed to use the most universally accepted free-tier models
+# AUTOMATIC MODEL DETECTION (THE ULTIMATE FIX)
+# We no longer guess names. We ask Google exactly what models your key owns!
 # -------------------------
-FALLBACK_MODELS = [
-    "gemini-1.5-flash",
-    "gemini-1.0-pro",
-    "gemini-pro"
-]
+FALLBACK_MODELS = []
+try:
+    for m in genai.list_models():
+        if 'generateContent' in m.supported_generation_methods:
+            # We put the fast 'flash' models at the front of the list
+            if 'flash' in m.name.lower():
+                FALLBACK_MODELS.insert(0, m.name)
+            else:
+                FALLBACK_MODELS.append(m.name)
+    print(f"✅ Automatically detected allowed models: {FALLBACK_MODELS}")
+except Exception as e:
+    print("⚠️ Failed to fetch models automatically. Using default.", e)
+    FALLBACK_MODELS = ["gemini-2.5-flash", "gemini-2.5-pro"]
 
 # -------------------------
 # Prompts
@@ -94,7 +102,8 @@ def query_llm(question, image_b64=None):
             print(f"⚠️ {model_name} failed: {str(e)}")
             continue
 
-    yield "⚠️ All AI servers are currently busy or unavailable. Please try again later."
+            # If all allowed models are out of quota
+    yield "⚠️ All AI servers are currently busy or out of quota. Please wait 1 minute and try again."
 
 
 # -------------------------
