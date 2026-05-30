@@ -21,17 +21,8 @@
       --text-muted: #9ca3af;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      width: 100%;
-      max-width: 100%;
-      overflow-x: hidden !important;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; max-width: 100%; overflow-x: hidden !important; }
 
     body {
       font-family: 'Poppins', sans-serif;
@@ -41,373 +32,109 @@
       position: relative;
     }
 
-    /* Subtle Tech Grid Overlay */
     body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 40px 40px;
-      z-index: -2;
-      pointer-events: none;
+      content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 40px 40px; z-index: -2; pointer-events: none;
     }
 
-    /* Animated Background Orbs */
-    .bg-orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(140px);
-      z-index: -1;
-      animation: floatOrbs 20s infinite alternate ease-in-out;
-    }
+    .bg-orb { position: fixed; border-radius: 50%; filter: blur(140px); z-index: -1; animation: floatOrbs 20s infinite alternate ease-in-out; }
     .orb-1 { width: 450px; height: 450px; background: rgba(59, 130, 246, 0.35); top: -10%; left: -10%; }
     .orb-2 { width: 550px; height: 550px; background: rgba(139, 92, 246, 0.25); bottom: -20%; right: -10%; animation-delay: -5s; }
     .orb-3 { width: 350px; height: 350px; background: rgba(236, 72, 153, 0.2); top: 30%; left: 50%; transform: translateX(-50%); animation-delay: -10s; }
 
-    /* --- PAGE WRAPPER --- */
-    .page-wrapper {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 20px;
-    }
+    .page-wrapper { display: flex; flex-direction: column; min-height: 100vh; max-width: 1400px; margin: 0 auto; padding: 20px; }
 
-    /* --- Header & Small Top Logo --- */
-    header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 25px;
-      flex-shrink: 0;
-    }
+    header { display: flex; flex-direction: column; align-items: center; margin-bottom: 25px; flex-shrink: 0; }
+    .top-logo { width: 75px; height: 75px; margin-bottom: 8px; border-radius: 50%; border: 3px solid transparent; background-image: linear-gradient(var(--bg-base), var(--bg-base)), var(--primary-gradient); background-origin: border-box; background-clip: content-box, border-box; box-shadow: 0 0 20px rgba(139, 92, 246, 0.4); object-fit: cover; }
+    h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -1px; text-align: center; }
+    h1 span { background: var(--primary-gradient); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 
-    .top-logo {
-      width: 75px;
-      height: 75px;
-      margin-bottom: 8px;
-      border-radius: 50%;
-      border: 3px solid transparent;
-      background-image: linear-gradient(var(--bg-base), var(--bg-base)), var(--primary-gradient);
-      background-origin: border-box;
-      background-clip: content-box, border-box;
-      box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
-      object-fit: cover;
-    }
-
-    h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      letter-spacing: -1px;
-      text-align: center;
-    }
-
-    h1 span {
-      background: var(--primary-gradient);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientShift 4s linear infinite;
-    }
-
-    .social-links {
-      display: flex;
-      gap: 12px;
-      margin-top: 10px;
-    }
-
-    .social-links a {
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px);
-      border-radius: 50%;
-      border: 1px solid var(--glass-border);
-      transition: all 0.3s ease;
-      fill: var(--text-muted);
-    }
+    .social-links { display: flex; gap: 12px; margin-top: 10px; }
+    .social-links a { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: var(--glass-bg); backdrop-filter: blur(10px); border-radius: 50%; border: 1px solid var(--glass-border); transition: all 0.3s ease; fill: var(--text-muted); }
     .social-links a:hover { fill: #fff; border-color: #8b5cf6; transform: translateY(-3px); }
     .social-links svg { width: 16px; height: 16px; }
 
-    /* --- THE RESPONSIVE CSS GRID --- */
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 280px minmax(0, 1fr) 280px;
-      gap: 25px;
-      flex: 1;
-    }
+    .dashboard-grid { display: grid; grid-template-columns: 280px minmax(0, 1fr) 280px; gap: 25px; flex: 1; min-height: 0; }
+    .side-panel { width: 280px; min-width: 280px; display: flex; flex-direction: column; gap: 20px; }
 
-    .glass-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-    }
+    .glass-card { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 20px; padding: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
 
-    /* Left Panel: Profile Photo */
-    .left-panel .glass-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 15px;
-    }
+    .left-panel .glass-card { padding: 15px; }
+    .profile-hero { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 16px; box-shadow: 0 8px 25px rgba(0,0,0,0.6); border: 2px solid var(--glass-border); }
+    .profile-name { text-align: center; font-weight: 600; font-size: 1.2rem; margin-top: 15px; color: #fff; }
 
-    .profile-hero {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-      border: 2px solid var(--glass-border);
-    }
+    .glass-select { width: 100%; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); border-radius: 12px; color: #fff; font-family: 'Poppins', sans-serif; outline: none; margin-top: 5px; cursor: pointer; }
+    .glass-select option { background: #0f172a; color: #fff; }
 
-    .profile-name {
-      text-align: center;
-      font-weight: 600;
-      font-size: 1.2rem;
-      margin-top: 15px;
-      color: #fff;
-      letter-spacing: 0.5px;
-    }
+    .history-card { max-height: 40vh; overflow-y: auto; }
+    .history-card::-webkit-scrollbar { width: 4px; }
+    .history-card::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+    .action-btn-group { display: flex; gap: 10px; margin-bottom: 15px; }
+    .action-btn { flex: 1; padding: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 10px; color: #fff; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; }
+    .action-btn:hover { background: rgba(139, 92, 246, 0.4); border-color: #8b5cf6; }
+    .history-item { padding: 10px; background: rgba(255,255,255,0.02); border-radius: 10px; margin-bottom: 8px; font-size: 0.85rem; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border: 1px solid transparent; transition: all 0.2s; }
+    .history-item:hover { border-color: #8b5cf6; background: rgba(255,255,255,0.05); }
 
-    /* Panel Headers */
-    .glass-card h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-bottom: 1px solid var(--glass-border);
-      padding-bottom: 8px;
-    }
-
-    /* Quick Chips */
+    .glass-card h3 { font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--glass-border); padding-bottom: 8px; }
     .chip-wrapper { display: flex; flex-direction: column; gap: 10px; }
-    .chip {
-      padding: 12px 14px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      line-height: 1.4;
-      text-align: left;
-    }
+    .chip { padding: 12px 14px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); border-radius: 12px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; text-align: left; }
     .chip:hover { background: rgba(139, 92, 246, 0.2); border-color: #8b5cf6; color: #fff; transform: translateX(5px); }
 
-    /* --- Feedback Form Styles --- */
-    .feedback-form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 5px;
-    }
-    .feedback-form input, .feedback-form textarea {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 10px 12px;
-      color: #fff;
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.85rem;
-      outline: none;
-      transition: all 0.3s ease;
-    }
-    .feedback-form input:focus, .feedback-form textarea:focus {
-      border-color: #ec4899;
-      background: rgba(255, 255, 255, 0.1);
-    }
-    .feedback-form textarea {
-      resize: vertical;
-      min-height: 70px;
-    }
-    .feedback-form button {
-      background: var(--primary-gradient);
-      background-size: 200% auto;
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      padding: 10px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 0.85rem;
-    }
-    .feedback-form button:hover {
-      background-position: right center;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
-    }
+    .feedback-form { display: flex; flex-direction: column; gap: 10px; }
+    .feedback-form input, .feedback-form textarea { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); border-radius: 10px; padding: 10px; color: #fff; font-family: 'Poppins', sans-serif; font-size: 0.85rem; outline: none; }
+    .feedback-form input:focus, .feedback-form textarea:focus { border-color: #ec4899; }
+    .feedback-form button { background: var(--primary-gradient); background-size: 200% auto; color: #fff; border: none; border-radius: 10px; padding: 10px; font-weight: 600; cursor: pointer; font-size: 0.85rem; }
 
-    /* --- Center Chat Area --- */
-    .main-chat {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      height: 68vh; /* Fixed viewport height allocation for desktop smoothness */
-    }
-
-    #chat_container {
-      flex: 1;
-      width: 100%;
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      padding: 25px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      overflow-y: auto;
-      overflow-x: hidden;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      scroll-behavior: smooth;
-    }
-
+    .main-chat { display: flex; flex-direction: column; gap: 15px; height: calc(100vh - 210px); min-height: 500px; min-width: 0; }
+    #chat_container { flex: 1; width: 100%; background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; padding: 25px; display: flex; flex-direction: column; gap: 18px; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; position: relative; }
     #chat_container::-webkit-scrollbar { width: 6px; }
-    #chat_container::-webkit-scrollbar-track { background: transparent; }
     #chat_container::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.2); border-radius: 10px; }
 
-    /* Messages */
     .chat-bubble { padding: 16px 22px; border-radius: 20px; font-size: 0.95rem; line-height: 1.7; max-width: 85%; word-wrap: break-word; position: relative; box-shadow: 0 4px 20px rgba(0,0,0,0.15); animation: messagePop 0.3s ease-out forwards; }
     .user { align-self: flex-end; background: var(--user-msg-bg); color: #ffffff; border-bottom-right-radius: 4px; transform-origin: bottom right; }
-    .bot { align-self: flex-start; background: var(--bot-msg-bg); border-bottom-left-radius: 4px; border: 1px solid var(--glass-border); transform-origin: bottom left; color: var(--text-main); }
+    .bot { align-self: flex-start; background: var(--bot-msg-bg); border-bottom-left-radius: 4px; border: 1px solid var(--glass-border); transform-origin: bottom left; color: var(--text-main); padding-top: 35px; }
 
-    /* Markdown Styling */
-    .bot p { margin-bottom: 12px; }
-    .bot p:last-child { margin-bottom: 0; }
-    .bot h1, .bot h2, .bot h3, .bot h4 { margin-top: 18px; margin-bottom: 10px; font-weight: 600; color: #fff; }
-    .bot h1:first-child, .bot h2:first-child, .bot h3:first-child { margin-top: 0; }
-    .bot ul, .bot ol { margin-left: 25px; margin-bottom: 12px; }
-    .bot li { margin-bottom: 6px; }
-    .bot strong { font-weight: 700; color: #fff; }
-    .bot code { background: rgba(0,0,0,0.4); padding: 3px 6px; border-radius: 6px; font-family: monospace; color: #60a5fa; }
-    .bot pre { background: #0f172a; padding: 15px; border-radius: 12px; overflow-x: auto; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 12px;}
+    .tts-btn { position: absolute; top: 8px; left: 15px; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: #fff; border-radius: 8px; padding: 4px 10px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s; font-weight: 500; }
+    .tts-btn:hover { background: var(--primary-gradient); border-color: transparent; }
+
+    .bot pre { background: #0f172a; padding: 15px; border-radius: 12px; overflow-x: auto; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 12px; position: relative; padding-top: 35px; }
     .bot pre code { background: transparent; color: #e5e7eb; padding: 0; }
+    .copy-code-btn { position: absolute; top: 5px; right: 5px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--glass-border); border-radius: 6px; padding: 4px 8px; font-size: 0.7rem; cursor: pointer; }
+    .copy-code-btn:hover { background: var(--primary-gradient); }
 
-    /* Input Area */
-    #input_container {
-      width: 100%;
-      display: flex;
-      gap: 15px;
-      align-items: flex-end;
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 12px 15px;
-      box-shadow: inset 0 2px 5px rgba(0,0,0,0.2), 0 4px 15px rgba(0,0,0,0.1);
-      flex-shrink: 0;
-    }
+    .bot p { margin-bottom: 12px; } .bot p:last-child { margin-bottom: 0; }
+    .bot h1, .bot h2, .bot h3, .bot h4 { margin-top: 18px; margin-bottom: 10px; font-weight: 600; color: #fff; }
+    .bot ul, .bot ol { margin-left: 25px; margin-bottom: 12px; } .bot li { margin-bottom: 6px; }
+
+    #input_container { width: 100%; display: flex; gap: 10px; align-items: flex-end; background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 20px; padding: 12px 15px; position: relative; flex-shrink: 0; transition: border-color 0.3s; }
     #input_container:focus-within { border-color: #8b5cf6; }
 
-    #user_input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.05rem;
-      outline: none;
-      resize: none;
-      min-height: 24px;
-      max-height: 120px;
-      overflow-y: auto;
-      padding: 5px 0;
-      line-height: 1.5;
-    }
+    #user_input { flex: 1; background: transparent; border: none; color: #fff; font-family: 'Poppins', sans-serif; font-size: 1.05rem; outline: none; resize: none; min-height: 24px; max-height: 120px; overflow-y: auto; padding: 5px 0; line-height: 1.5; }
     #user_input::placeholder { color: #6b7280; font-weight: 300; }
     #user_input::-webkit-scrollbar { width: 4px; }
-    #user_input::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.2); border-radius: 10px; }
+    #user_input::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
 
-    #send_btn {
-      padding: 10px;
-      height: 40px;
-      width: 40px;
-      background: var(--primary-gradient);
-      background-size: 200% auto;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      flex-shrink: 0;
-    }
-    #send_btn:hover { background-position: right center; transform: scale(1.05); }
+    #image_preview_container { display: none; position: absolute; bottom: 100%; left: 20px; margin-bottom: 10px; background: var(--glass-bg); padding: 5px; border-radius: 12px; border: 1px solid var(--glass-border); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+    #image_preview_container img { max-height: 80px; border-radius: 8px; }
+    #remove_image_btn { position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-    /* Footer Badge */
-    .creator-badge {
-      margin-top: 25px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      text-align: center;
-      flex-shrink: 0;
-      padding-bottom: 10px;
-    }
+    .action-icon-btn { padding: 10px; height: 45px; width: 45px; background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--glass-border); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; flex-shrink: 0; }
+    .action-icon-btn:hover { background: rgba(255,255,255,0.1); }
+
+    #send_btn { background: var(--primary-gradient); background-size: 200% auto; border: none; }
+    #send_btn:hover { background-position: right center; transform: scale(1.05); box-shadow: 0 5px 15px rgba(236, 72, 153, 0.4); }
+
+    .creator-badge { margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); text-align: center; flex-shrink: 0; }
     .creator-badge span { color: #ec4899; font-weight: 600; }
 
-    /* Animations */
     @keyframes floatOrbs { 0% { transform: translate(0, 0); } 50% { transform: translate(30px, -30px); } 100% { transform: translate(-20px, 20px); } }
-    @keyframes gradientShift { to { background-position: 200% center; } }
     @keyframes messagePop { from { opacity: 0; transform: scale(0.9) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
-    /* ==================================================
-       MEDIA QUERIES (TABLET & MOBILE RESPONSIVE REWRITE)
-       ================================================== */
     @media (max-width: 1100px) {
-      .dashboard-grid {
-        grid-template-columns: 1fr; /* Switch to a single stacking column layout */
-        gap: 20px;
-      }
-
-      .left-panel, .right-panel {
-        display: block; /* Make sure elements stay visible */
-        width: 100%;
-      }
-
-      .main-chat {
-        height: 60vh; /* Smooth container layout for middle tier viewports */
-        grid-row: 1;  /* Force the chat container to remain at the absolute top on mobile! */
-      }
-
-      .profile-hero {
-        width: 180px; /* Resize profile box down on mobile so it doesn't scale massively */
-        height: 180px;
-      }
-
-      .chip-wrapper {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* Quick prompt chips sit cleanly side by side */
-        gap: 10px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .page-wrapper { padding: 12px; }
-      .top-logo { width: 65px; height: 65px; }
-      h1 { font-size: 1.6rem; }
-      #chat_container { padding: 16px; border-radius: 18px; }
-      .chat-bubble { max-width: 90%; font-size: 0.9rem; }
-
-      .chip-wrapper {
-        grid-template-columns: 1fr; /* Stack chips single column on extra tiny phones */
-      }
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .left-panel, .right-panel { display: none; }
+      .main-chat { height: calc(100vh - 200px); }
     }
   </style>
 </head>
@@ -419,138 +146,309 @@
   <div class="bg-orb orb-3"></div>
 
   <div class="page-wrapper">
-
     <header>
-      <img src="{{ url_for('static', filename='assets/Manoj.webp') }}" alt="Top Logo" class="top-logo" onerror="this.src='https://ui-avatars.com/api/?name=Mr+Manoj&background=8b5cf6&color=fff'">
+      <img src="{{ url_for('static', filename='assets/Manoj.webp') }}" alt="Top Logo" class="top-logo">
       <h1>🌐 Mr. Manoj – <span>AI Assistant</span></h1>
-
-      <div class="social-links">
-        <a href="https://github.com/hanumanthumanoj01" target="_blank" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" /></svg></a>
-        <a href="https://www.linkedin.com/in/manoj-hanumanthu/" target="_blank" title="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg></a>
-        <a href="https://mail.google.com/mail/?view=cm&to=hanumanthumanoj27@gmail.com" target="_blank" title="Email"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" /></svg></a>
-      </div>
     </header>
 
     <div class="dashboard-grid">
 
       <aside class="side-panel left-panel">
         <div class="glass-card">
-          <img src="{{ url_for('static', filename='assets/hero.png') }}" alt="Manoj Hero" class="profile-hero" onerror="this.src='https://ui-avatars.com/api/?name=Mr+Manoj&background=8b5cf6&color=fff'">
+          <img src="{{ url_for('static', filename='assets/hero.png') }}" alt="Manoj Hero" class="profile-hero">
           <div class="profile-name">Manoj Hanumanthu</div>
+        </div>
+
+        <div class="glass-card" style="margin-top: 20px;">
+          <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg> Voice Settings</h3>
+          <select id="tts_language" class="glass-select">
+            <option value="Telugu" selected>Telugu (తెలుగు)</option>
+            <option value="Hindi">Hindi (हिंदी)</option>
+            <option value="Tamil">Tamil (தமிழ்)</option>
+            <option value="Urdu">Urdu (اردو)</option>
+            <option value="English">English</option>
+          </select>
+        </div>
+
+        <div class="glass-card history-card" style="margin-top: 20px;">
+          <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Chat History</h3>
+          <div class="action-btn-group">
+            <button class="action-btn" onclick="startNewChat()">+ New Chat</button>
+            <button class="action-btn" onclick="exportChat()">📥 Export</button>
+          </div>
+          <div id="history_list" class="chip-wrapper"></div>
         </div>
       </aside>
 
       <main class="main-chat">
         <div id="chat_container">
-          <div class="bot chat-bubble">Hello! I am Mr. Manoj Hanumanthu, your AI assistant. How can I help you today?</div>
+          <div class="bot chat-bubble">Hello! I am Mr. Manoj Hanumanthu, your AI assistant. Upload an image or ask me anything!</div>
         </div>
 
         <div id="input_container">
-          <textarea id="user_input" rows="1" placeholder="Type a message..."></textarea>
-          <button id="send_btn" onclick="sendMessage()">
+          <div id="image_preview_container">
+            <button id="remove_image_btn" onclick="clearImage()">×</button>
+            <img id="image_preview" src="" alt="Upload Preview">
+          </div>
+
+          <input type="file" id="image_upload" accept="image/*" style="display:none;">
+
+          <button class="action-icon-btn" onclick="document.getElementById('image_upload').click()" title="Upload Image">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+          </button>
+
+          <textarea id="user_input" rows="1" placeholder="Ask a question or describe your image..."></textarea>
+
+          <button class="action-icon-btn" id="send_btn" onclick="sendMessage()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
           </button>
         </div>
       </main>
 
       <aside class="side-panel right-panel">
-
         <div class="glass-card">
-          <h3>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-            Quick Prompts
-          </h3>
+          <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Quick Prompts</h3>
           <div class="chip-wrapper">
             <span class="chip" onclick="fillPrompt('Explain the fundamental principles of Chemical Engineering');">⚗️ Chem Engineering</span>
-            <span class="chip" onclick="fillPrompt('Provide a detailed explanation of Indian Railways Electric Loco Shed codes and their meanings');">🚆 Loco Shed Codes</span>
+            <span class="chip" onclick="fillPrompt('Provide a detailed explanation of Indian Railways Electric Loco Shed codes');">🚆 Loco Shed Codes</span>
             <span class="chip" onclick="fillPrompt('Describe the key maintenance equipment used in electric locomotive sheds');">⚙️ Loco Equipment</span>
             <span class="chip" onclick="fillPrompt('Explain the latest advancements and standard procedures in modern Dentistry');">🦷 Modern Dentistry</span>
           </div>
         </div>
 
         <div class="glass-card" style="margin-top: 20px;">
-          <h3>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-            Suggestion Box
-          </h3>
-          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Send feedback directly to Manoj!</p>
-
+          <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Suggestion Box</h3>
           <form class="feedback-form" action="https://formsubmit.co/hanumanthumanoj27@gmail.com" method="POST">
             <input type="hidden" name="_next" value="https://manoj-ai-gf63.onrender.com">
             <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_subject" value="New AI Chatbot Feedback!">
-
             <input type="text" name="name" placeholder="Your Name" required>
             <textarea name="message" placeholder="Your suggestions..." required></textarea>
             <button type="submit">Send Feedback</button>
           </form>
         </div>
-
       </aside>
 
-    </div> <div class="creator-badge">
-      Designed & Engineered by <span>Manoj Hanumanthu</span>
     </div>
 
-  </div> <script>
+    <div class="creator-badge">
+      Designed & Engineered by <span>Manoj Hanumanthu</span>
+    </div>
+  </div>
+
+  <script>
     const userInput = document.getElementById("user_input");
+    const chatContainer = document.getElementById("chat_container");
 
-    function fillPrompt(text) {
-      userInput.value = text;
-      adjustTextareaHeight();
-      userInput.focus();
+    // --- 1. LOCAL STORAGE HISTORY LOGIC ---
+    let chatHistory = JSON.parse(localStorage.getItem('manoj_chats')) || [];
+    let currentChatId = Date.now().toString();
+    let currentMessages = [];
+
+    function renderHistory() {
+      const list = document.getElementById('history_list');
+      list.innerHTML = '';
+      chatHistory.forEach(chat => {
+        const item = document.createElement('div');
+        item.className = 'history-item';
+        item.textContent = chat.title;
+        item.onclick = () => loadChat(chat.id);
+        list.appendChild(item);
+      });
     }
 
-    function adjustTextareaHeight() {
-      userInput.style.height = "auto";
-      userInput.style.height = Math.min(userInput.scrollHeight, 120) + "px";
+    function saveChat() {
+      if (currentMessages.length === 0) return;
+      let session = chatHistory.find(c => c.id === currentChatId);
+      if (!session) {
+        session = { id: currentChatId, title: currentMessages[0].text.substring(0, 20) + '...', messages: [] };
+        chatHistory.unshift(session);
+      }
+      session.messages = currentMessages;
+      localStorage.setItem('manoj_chats', JSON.stringify(chatHistory));
+      renderHistory();
     }
 
+    function startNewChat() {
+      currentChatId = Date.now().toString();
+      currentMessages = [];
+      chatContainer.innerHTML = '<div class="bot chat-bubble">Hello! I am Mr. Manoj Hanumanthu, your AI assistant. Upload an image or ask me anything!</div>';
+    }
+
+    function loadChat(id) {
+      const session = chatHistory.find(c => c.id === id);
+      if (!session) return;
+      currentChatId = id;
+      currentMessages = session.messages;
+      chatContainer.innerHTML = '';
+
+      currentMessages.forEach(msg => {
+        const bubble = document.createElement("div");
+        bubble.className = `${msg.role} chat-bubble`;
+        if(msg.role === 'bot') {
+            bubble.innerHTML = marked.parse(msg.text);
+            addExtras(bubble, msg.text);
+        } else {
+            bubble.innerHTML = msg.text.replace(/\n/g, '<br>');
+        }
+        chatContainer.appendChild(bubble);
+      });
+      chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: "smooth" });
+    }
+
+    function exportChat() {
+      if(currentMessages.length === 0) return alert("Chat is empty!");
+      let content = "Chat with Mr. Manoj AI\n\n";
+      currentMessages.forEach(m => {
+        content += (m.role === 'user' ? "You: " : "Mr. Manoj: ") + m.text + "\n\n";
+      });
+      const blob = new Blob([content], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `Manoj_AI_Chat_${new Date().toISOString().slice(0,10)}.txt`;
+      a.click();
+    }
+
+    // --- IMAGE UPLOAD LOGIC ---
+    let currentImageBase64 = null;
+    document.getElementById('image_upload').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          currentImageBase64 = evt.target.result;
+          document.getElementById('image_preview').src = currentImageBase64;
+          document.getElementById('image_preview_container').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function clearImage() {
+      currentImageBase64 = null;
+      document.getElementById('image_upload').value = "";
+      document.getElementById('image_preview_container').style.display = 'none';
+    }
+
+    // --- 4. ADVANCED TTS TRANSLATION WITH STOP BUTTON ---
+    let isSpeaking = false;
+
+    async function playTTS(rawText, btnElement) {
+        // If it is already speaking, this acts as a STOP button
+        if (isSpeaking) {
+            speechSynthesis.cancel();
+            isSpeaking = false;
+            btnElement.innerHTML = '🔊 Read';
+            return;
+        }
+
+        const selectedLang = document.getElementById("tts_language").value;
+        const langMap = { 'Telugu': 'te-IN', 'Tamil': 'ta-IN', 'Hindi': 'hi-IN', 'Urdu': 'ur-IN', 'English': 'en-US' };
+        let langCode = langMap[selectedLang] || 'en-US';
+        let textToSpeak = rawText.replace(/[*#`]/g, '');
+
+        if (selectedLang !== 'English') {
+            btnElement.innerHTML = '⏳ Translating...';
+            try {
+                const res = await fetch("/translate", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ text: textToSpeak, language: selectedLang })
+                });
+                const data = await res.json();
+                if (data.translated_text) {
+                    textToSpeak = data.translated_text;
+                } else {
+                    console.error("Translation returned empty data.");
+                    alert("Translation server busy. Reading in English.");
+                }
+            } catch (e) {
+                console.error("Translation request failed", e);
+                alert("Translation failed. Reading in English.");
+            }
+        }
+
+        speechSynthesis.cancel();
+        let utterance = new SpeechSynthesisUtterance(textToSpeak);
+        utterance.lang = langCode;
+        utterance.rate = 0.9;
+
+        utterance.onstart = () => {
+            isSpeaking = true;
+            btnElement.innerHTML = '🛑 Stop';
+            btnElement.style.background = '#ef4444'; // Make it red while playing
+            btnElement.style.borderColor = 'transparent';
+        };
+        utterance.onend = () => {
+            isSpeaking = false;
+            btnElement.innerHTML = '🔊 Read';
+            btnElement.style.background = 'rgba(255,255,255,0.1)'; // Return to normal
+        };
+        utterance.onerror = () => {
+            isSpeaking = false;
+            btnElement.innerHTML = '🔊 Read';
+            btnElement.style.background = 'rgba(255,255,255,0.1)';
+        };
+
+        speechSynthesis.speak(utterance);
+    }
+
+    function addExtras(bubble, fullText) {
+      const ttsBtn = document.createElement('button');
+      ttsBtn.innerHTML = '🔊 Read';
+      ttsBtn.className = 'tts-btn';
+      ttsBtn.onclick = () => playTTS(fullText, ttsBtn);
+      bubble.appendChild(ttsBtn);
+
+      const preBlocks = bubble.querySelectorAll('pre');
+      preBlocks.forEach(block => {
+        const btn = document.createElement('button');
+        btn.innerHTML = 'Copy';
+        btn.className = 'copy-code-btn';
+        btn.onclick = () => {
+          navigator.clipboard.writeText(block.innerText.replace('Copy','').trim());
+          btn.innerHTML = 'Copied!';
+          setTimeout(() => btn.innerHTML = 'Copy', 2000);
+        };
+        block.appendChild(btn);
+      });
+    }
+
+    // --- 5. CORE CHAT LOGIC ---
+    function fillPrompt(text) { userInput.value = text; adjustTextareaHeight(); userInput.focus(); }
+    function adjustTextareaHeight() { userInput.style.height = "auto"; userInput.style.height = Math.min(userInput.scrollHeight, 120) + "px"; }
     userInput.addEventListener("input", adjustTextareaHeight);
 
     userInput.addEventListener("keydown", function (e) {
-      if (e.key === "Enter") {
-        if (e.shiftKey) {
-          setTimeout(adjustTextareaHeight, 0);
-        } else {
-          e.preventDefault();
-          sendMessage();
-        }
-      }
+      if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }
     });
 
     async function sendMessage() {
       const text = userInput.value.trim();
-      if (!text) return;
+      const imageToSend = currentImageBase64;
 
-      const chatContainer = document.getElementById("chat_container");
+      if (!text && !imageToSend) return;
 
       const userBubble = document.createElement("div");
       userBubble.className = "user chat-bubble";
       userBubble.innerHTML = text.replace(/\n/g, '<br>');
+      if (imageToSend) userBubble.innerHTML += `<br><img src="${imageToSend}" style="max-height: 150px; border-radius: 10px; margin-top: 10px;">`;
       chatContainer.appendChild(userBubble);
       chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: "smooth" });
 
+      currentMessages.push({ role: 'user', text: text || "[Sent an Image]" });
+
       userInput.value = "";
       userInput.style.height = "auto";
+      clearImage();
 
       try {
         const response = await fetch("/chatbot", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question: text })
+          body: JSON.stringify({ question: text, image: imageToSend })
         });
 
-        if (!response.ok) {
-            const errorText = await response.text();
-            const errorBubble = document.createElement("div");
-            errorBubble.className = "bot chat-bubble";
-            errorBubble.style.color = "#ff7b72";
-            errorBubble.textContent = errorText;
-            chatContainer.appendChild(errorBubble);
-            chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: "smooth" });
-            return;
-        }
+        if (!response.ok) throw new Error(await response.text());
 
         const botBubble = document.createElement("div");
         botBubble.className = "bot chat-bubble";
@@ -563,21 +461,25 @@
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
-
           botText += decoder.decode(value, { stream: true });
           botBubble.innerHTML = marked.parse(botText);
           chatContainer.scrollTo({ top: chatContainer.scrollHeight });
         }
 
+        addExtras(botBubble, botText);
+        currentMessages.push({ role: 'bot', text: botText });
+        saveChat();
+
       } catch (error) {
-        console.error("Error:", error);
         const errorBubble = document.createElement("div");
         errorBubble.className = "bot chat-bubble";
         errorBubble.style.color = "#ff7b72";
-        errorBubble.textContent = "Oops! Something went wrong. Check your connection.";
+        errorBubble.textContent = "Error: " + error.message;
         chatContainer.appendChild(errorBubble);
       }
     }
+
+    renderHistory();
   </script>
 
 </body>
